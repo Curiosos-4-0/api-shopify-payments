@@ -1,0 +1,20 @@
+{
+  "name": "api-shopify-payment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js && npx prisma migrate dev --name init"
+  },
+  "author": "osvaldo, hernani",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "prisma": "^5.17.0",
+    "shopify-api-node": "^3.13.4"
+  }
+}

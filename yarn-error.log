@@ -1,0 +1,55 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Osval\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @prima/client
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Falcon\MinGW\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Common Files\Tom Sawyer Software\10.0.0;C:\Program Files\nodejs\;C:\Users\Osval\AppData\Local\Programs\Python\Launcher\;C:\Ruby31-x64\bin;C:\Users\Osval\AppData\Local\Microsoft\WindowsApps;C:\Users\Osval\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Azure Data Studio\bin;C:\Users\Osval\AppData\Roaming\Composer\vendor\bin;C:\Program Files\heroku\bin;C:\Users\Osval\Documents\ICPC\System\pc2-9.8.0\bin;C:\Program Files\Java\jdk-17\bin;C:\Program Files\Java\jre1.8.0_351\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2023.3.1\bin;;C:\Users\Osval\.dotnet\tools;C:\Users\Osval\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.12.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@prima%2fclient: Not found
+      at params.callback [as _callback] (C:\Users\Osval\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at self.callback (C:\Users\Osval\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:518:28)
+      at Request.<anonymous> (C:\Users\Osval\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:518:28)
+      at IncomingMessage.<anonymous> (C:\Users\Osval\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:632:28)
+      at IncomingMessage.emit (node:events:530:35)
+      at endReadableNT (node:internal/streams/readable:1696:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "api-shopify-payment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node index.js && npx prisma migrate dev --name init"
+    },
+    "author": "osvaldo, hernani",
+    "license": "ISC",
+    "dependencies": {
+      "axios": "^1.7.2",
+      "dotenv": "^16.4.5",
+      "express": "^4.19.2",
+      "pg": "^8.12.0",
+      "prisma": "^5.17.0",
+      "shopify-api-node": "^3.13.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
