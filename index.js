@@ -109,6 +109,58 @@ app.post("/wook_payment", async function (req, res) {
   res.sendStatus(200);
 });
 
+app.post("/reference_wook_payment", async function (req, res) {
+  API_PASS_STORE = process.env.API_PASS_STORE;
+
+  const updatereference = await prisma.reference.update({
+    where: {
+      reference: req.body.reference_id,
+    },
+    data: {
+      status: "PAYED",
+    },
+  });
+
+  if (!updatereference) {
+    return res.status(400).json({ error: "Error updatereference" });
+  }
+
+  const reference = await prisma.purshase.findUnique({
+    where: {
+      reference: req.body.reference_id,
+    },
+  });
+
+  if (!reference) {
+    return res.status(400).json({ error: "Error finding reference" });
+  }
+
+  if (reference != null && reference.status == "PAYED") {
+    axios
+      .post(
+        API_PASS_STORE +
+          "/orders/" +
+          reference.order_id +
+          "/transactions.json",
+        {
+          transaction: {
+            currency: "AOA",
+            amount: req.body.amount,
+            kind: "capture",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  res.sendStatus(200);
+});
+
 // Function to get current date plus 3 days in ISO format
 const getEndDateTime = () => {
   const date = new Date();
@@ -138,6 +190,9 @@ app.get("/reference_token_payment", async (req, res) => {
       {
         amount: amount,
         end_datetime: endDateTime,
+        custom_fields: {
+          callback_url: process.env.CALLBACK_URL,
+        },
       },
       {
         headers: {
@@ -191,6 +246,7 @@ const saveReferenceData = async (order_id, reference, amount, endDateTime) => {
         reference: reference + "",
         amount: amount,
         endDateTime: endDateTime,
+        status: "CREATED",
       },
     });
   } catch (error) {

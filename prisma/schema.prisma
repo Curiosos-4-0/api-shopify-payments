@@ -20,7 +20,7 @@ model Purshase {
   amount    String
   pos       String
   reference String
-  status    String
+  status    String?
 }
 
 model Reference {
@@ -29,5 +29,6 @@ model Reference {
   order_id    String
   amount      String
   endDateTime String
+  status      String
   createdAt   DateTime @default(now())
 }
