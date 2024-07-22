@@ -112,7 +112,7 @@ app.post("/wook_payment", async function (req, res) {
 app.post("/reference_wook_payment", async function (req, res) {
   API_PASS_STORE = process.env.API_PASS_STORE;
 
-  const referenceReq = req.body.reference_id
+  const referenceReq = req.body.reference_id;
   const updatereference = await prisma.reference.update({
     where: {
       reference: referenceReq,
@@ -139,10 +139,7 @@ app.post("/reference_wook_payment", async function (req, res) {
   if (reference != null && reference.status == "PAYED") {
     axios
       .post(
-        API_PASS_STORE +
-          "/orders/" +
-          reference.order_id +
-          "/transactions.json",
+        API_PASS_STORE + "/orders/" + reference.order_id + "/transactions.json",
         {
           transaction: {
             currency: "AOA",
@@ -159,7 +156,7 @@ app.post("/reference_wook_payment", async function (req, res) {
       });
   }
 
-  console.log("Reference "+referenceReq+" payed");
+  console.log("Reference " + referenceReq + " payed");
 
   res.sendStatus(200);
 });
@@ -206,7 +203,7 @@ app.get("/reference_token_payment", async (req, res) => {
       }
     );
 
-    console.log("Reference "+referenceFromProxyPay+" created");
+    console.log("Reference " + referenceFromProxyPay + " created");
     res.status(200).json({
       reference: referenceFromProxyPay,
       end_datetime: endDateTime,

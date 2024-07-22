@@ -15,8 +15,10 @@ CREATE TABLE "Purshase" (
 CREATE TABLE "Reference" (
     "id" SERIAL NOT NULL,
     "reference" TEXT NOT NULL,
+    "order_id" TEXT NOT NULL,
     "amount" TEXT NOT NULL,
     "endDateTime" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'CREATED',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Reference_pkey" PRIMARY KEY ("id")
