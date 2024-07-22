@@ -3,6 +3,7 @@ require("dotenv/config");
 var express = require("express");
 var app = express();
 var axios = require("axios");
+const cors = require('cors');
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -12,6 +13,9 @@ const { Pool } = require("pg");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Enable CORS
+app.use(cors());
 
 app.get("/token_payment", function (req, res) {
   GPO_URL = process.env.GPO_URL;
