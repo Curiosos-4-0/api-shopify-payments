@@ -212,6 +212,7 @@ app.get("/reference_token_payment", async (req, res) => {
       reference: referenceFromProxyPay,
       end_datetime: endDateTime,
       amount: amount,
+      entity: process.env.PROXYPAY_ENTITY,
     });
   } catch (error) {
     console.error(error);
