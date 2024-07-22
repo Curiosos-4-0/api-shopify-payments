@@ -112,9 +112,10 @@ app.post("/wook_payment", async function (req, res) {
 app.post("/reference_wook_payment", async function (req, res) {
   API_PASS_STORE = process.env.API_PASS_STORE;
 
+  const referenceReq = req.body.reference_id
   const updatereference = await prisma.reference.update({
     where: {
-      reference: req.body.reference_id,
+      reference: referenceReq,
     },
     data: {
       status: "PAYED",
@@ -127,7 +128,7 @@ app.post("/reference_wook_payment", async function (req, res) {
 
   const reference = await prisma.purshase.findUnique({
     where: {
-      reference: req.body.reference_id,
+      reference: referenceReq,
     },
   });
 
@@ -157,6 +158,8 @@ app.post("/reference_wook_payment", async function (req, res) {
         console.log(error);
       });
   }
+
+  console.log("Reference "+referenceReq+" payed");
 
   res.sendStatus(200);
 });
@@ -203,6 +206,7 @@ app.get("/reference_token_payment", async (req, res) => {
       }
     );
 
+    console.log("Reference "+referenceFromProxyPay+" created");
     res.status(200).json({
       reference: referenceFromProxyPay,
       end_datetime: endDateTime,
