@@ -130,7 +130,7 @@ app.post("/reference_wook_payment", async function (req, res) {
     return res.status(400).json({ error: "Error updatereference" });
   }
 
-  const reference = await prisma.purshase.findUnique({
+  const reference = await prisma.reference.findUnique({
     where: {
       reference: referenceReq,
     },
