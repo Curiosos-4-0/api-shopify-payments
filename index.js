@@ -28,20 +28,19 @@ app.get("/token_payment", function (req, res) {
 
   axios
     .post(
-      GPO_URL + "v1/store_payments",
+      GPO_URL + "online-payment-gateway/portal/frameToken",
       {
         reference: reference,
         amount: amount,
+        token: TOKEN,
         mobile: "PAYMENT",
+        qrCode: "PAYMENT",
         card: "DISABLED",
         callback_url: BASE_URL + "/wook_payment",
       },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Token " + TOKEN,
-          ENV: ENVIRONMENT,
-          // Add more headers as needed
         },
       }
     )
