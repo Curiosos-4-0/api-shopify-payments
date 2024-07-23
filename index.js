@@ -116,9 +116,11 @@ app.post("/reference_wook_payment", async function (req, res) {
   API_PASS_STORE = process.env.API_PASS_STORE;
 
   const referenceReq = req.body.reference_id+"";
+  const amount = req.body.amount+"";
   const updatereference = await prisma.reference.update({
     where: {
       reference: referenceReq,
+      amount: amount
     },
     data: {
       status: "PAYED",
