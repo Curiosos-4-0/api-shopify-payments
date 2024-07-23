@@ -169,7 +169,7 @@ app.post("/reference_wook_payment", async function (req, res) {
 // Function to get current date plus 3 days in ISO format
 const getEndDateTime = () => {
   const date = new Date();
-  date.setDate(date.getDate() + 3);
+  date.setDate(date.getDate() + 2);
   return date.toISOString().split("T")[0];
 };
 
