@@ -36,7 +36,7 @@ app.get("/token_payment", function (req, res) {
         mobile: "PAYMENT",
         qrCode: "PAYMENT",
         card: "DISABLED",
-        callback_url: BASE_URL + "/wook_payment",
+        callbackUrl: BASE_URL + "/wook_payment",
       },
       {
         headers: {
