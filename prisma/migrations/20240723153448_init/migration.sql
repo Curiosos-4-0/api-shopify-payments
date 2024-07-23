@@ -1,27 +1,23 @@
 -- CreateTable
 CREATE TABLE "Purshase" (
-    "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "gpo_id" TEXT NOT NULL,
     "amount" TEXT NOT NULL,
     "pos" TEXT NOT NULL,
     "reference" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
-
-    CONSTRAINT "Purshase_pkey" PRIMARY KEY ("id")
+    "status" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Reference" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "reference" TEXT NOT NULL,
     "order_id" TEXT NOT NULL,
     "amount" TEXT NOT NULL,
     "endDateTime" TEXT NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'CREATED',
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "Reference_pkey" PRIMARY KEY ("id")
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateIndex

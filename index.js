@@ -6,7 +6,13 @@ var axios = require("axios");
 const cors = require('cors');
 const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: 'file:./dev.db',
+    },
+  },
+});
 
 var fs = require("fs");
 const { Pool } = require("pg");
@@ -246,7 +252,7 @@ const generateReference = async () => {
 // Auxiliary method to save reference data
 const saveReferenceData = async (order_id, reference, amount, endDateTime) => {
   try {
-    // Save to PostgreSQL using Prisma
+    // Save to SQLite using Prisma
     await prisma.reference.create({
       data: {
         order_id: order_id,
