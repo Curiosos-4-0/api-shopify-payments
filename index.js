@@ -3,13 +3,13 @@ require("dotenv/config");
 var express = require("express");
 var app = express();
 var axios = require("axios");
-const cors = require('cors');
+const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: 'file:./dev.db',
+      url: "file:./dev.db",
     },
   },
 });
@@ -121,12 +121,14 @@ app.post("/wook_payment", async function (req, res) {
 app.post("/reference_wook_payment", async function (req, res) {
   API_PASS_STORE = process.env.API_PASS_STORE;
 
-  const referenceReq = req.body.reference_id+"";
-  const amount = req.body.amount+"";
+  const referenceReq = req.body.reference_id + "";
+  const amount = req.body.amount + "";
+
+  console.log("reference_wook_payment: Reference " + referenceReq + " receved");
+
   const updatereference = await prisma.reference.update({
     where: {
       reference: referenceReq,
-      amount: amount
     },
     data: {
       status: "PAYED",
@@ -136,6 +138,8 @@ app.post("/reference_wook_payment", async function (req, res) {
   if (!updatereference) {
     return res.status(400).json({ error: "Error updatereference" });
   }
+
+  console.log("reference_wook_payment: Reference " + referenceReq + " updated");
 
   const reference = await prisma.reference.findUnique({
     where: {
@@ -163,7 +167,7 @@ app.post("/reference_wook_payment", async function (req, res) {
         console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("Error updating purshase: " + error);
       });
   }
 
