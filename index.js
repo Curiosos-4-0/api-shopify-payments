@@ -6,13 +6,7 @@ var axios = require("axios");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: "file:./dev.db",
-    },
-  },
-});
+const prisma = new PrismaClient();
 
 var fs = require("fs");
 const { Pool } = require("pg");
@@ -136,7 +130,7 @@ app.post("/reference_wook_payment", async function (req, res) {
   });
 
   if (!updatereference) {
-    return res.status(400).json({ error: "Error updatereference" });
+    return res.status(300).json({ error: "Error updatereference" });
   }
 
   console.log("reference_wook_payment: Reference " + referenceReq + " updated");
@@ -148,7 +142,7 @@ app.post("/reference_wook_payment", async function (req, res) {
   });
 
   if (!reference) {
-    return res.status(400).json({ error: "Error finding reference" });
+    return res.status(300).json({ error: "Error finding reference" });
   }
 
   if (reference != null && reference.status == "PAYED") {
