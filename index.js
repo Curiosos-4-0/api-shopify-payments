@@ -161,7 +161,9 @@ app.post("/reference_wook_payment", async function (req, res) {
           console.log(response);
         })
         .catch(function (error) {
-          console.log("Error updating purshase "+reference.order_id+": " + error);
+          console.log(
+            "Error updating purshase " + reference.order_id + ": " + error
+          );
           ///res.sendStatus(300);
         });
     }
@@ -206,7 +208,7 @@ app.get("/reference_token_payment", async (req, res) => {
         end_datetime: endDateTime,
         custom_fields: {
           callback_url: process.env.CALLBACK_URL,
-          order_id: reference
+          order_id: reference,
         },
       },
       {
@@ -271,6 +273,14 @@ const saveReferenceData = async (order_id, reference, amount, endDateTime) => {
     throw new Error("Could not save reference data");
   }
 };
+
+app.head('/example', (req, res) => {
+  // Set custom headers or use the default ones
+  res.set({
+      'Content-Type': 'application/json'
+  });
+  res.end();
+});
 
 var server = app.listen(process.env.PORT, function () {
   var host = server.address().address;
