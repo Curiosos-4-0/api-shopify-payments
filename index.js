@@ -118,56 +118,61 @@ app.post("/reference_wook_payment", async function (req, res) {
   const referenceReq = req.body.reference_id + "";
   const amount = req.body.amount + "";
 
-  console.log("reference_wook_payment: Reference " + referenceReq + " receved");
+  console.log(
+    "reference_wook_payment: Reference " + referenceReq + " received"
+  );
 
-  const updatereference = await prisma.reference.update({
-    where: {
-      reference: referenceReq,
-    },
-    data: {
-      status: "PAYED",
-    },
-  });
+  try {
+    const updatereference = await prisma.reference.update({
+      where: {
+        reference: referenceReq,
+      },
+      data: {
+        status: "PAYED",
+      },
+    });
 
-  if (!updatereference) {
-    return res.status(300).json({ error: "Error updatereference" });
+    console.log(
+      "reference_wook_payment: Reference " + referenceReq + " updated"
+    );
+
+    const reference = await prisma.reference.findUnique({
+      where: {
+        reference: referenceReq,
+      },
+    });
+
+    if (reference != null && reference.status == "PAYED") {
+      axios
+        .post(
+          API_PASS_STORE +
+            "/orders/" +
+            reference.order_id +
+            "/transactions.json",
+          {
+            transaction: {
+              currency: "AOA",
+              amount: req.body.amount,
+              kind: "capture",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log("Error updating purshase "+reference.order_id+": " + error);
+          ///res.sendStatus(300);
+        });
+    }
+
+    console.log("Reference " + referenceReq + " payed");
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.log("reference_wook_payment:" + error);
+    res.sendStatus(204);
   }
-
-  console.log("reference_wook_payment: Reference " + referenceReq + " updated");
-
-  const reference = await prisma.reference.findUnique({
-    where: {
-      reference: referenceReq,
-    },
-  });
-
-  if (!reference) {
-    return res.status(300).json({ error: "Error finding reference" });
-  }
-
-  if (reference != null && reference.status == "PAYED") {
-    axios
-      .post(
-        API_PASS_STORE + "/orders/" + reference.order_id + "/transactions.json",
-        {
-          transaction: {
-            currency: "AOA",
-            amount: req.body.amount,
-            kind: "capture",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log("Error updating purshase: " + error);
-      });
-  }
-
-  console.log("Reference " + referenceReq + " payed");
-
-  res.sendStatus(200);
 });
 
 // Function to get current date plus 3 days in ISO format
@@ -201,6 +206,7 @@ app.get("/reference_token_payment", async (req, res) => {
         end_datetime: endDateTime,
         custom_fields: {
           callback_url: process.env.CALLBACK_URL,
+          order_id: reference
         },
       },
       {
