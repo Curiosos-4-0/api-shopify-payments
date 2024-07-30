@@ -274,10 +274,21 @@ const saveReferenceData = async (order_id, reference, amount, endDateTime) => {
   }
 };
 
-app.head('/example', (req, res) => {
+app.head("/example", (req, res) => {
   // Set custom headers or use the default ones
+  // Query returns User or null
+  prisma.reference
+    .findUnique({
+      where: {
+        id: 1,
+      },
+    })
+    .then(function (response) {
+    })
+    .catch(function (error) {});
+
   res.set({
-      'Content-Type': 'application/json'
+    "Content-Type": "application/json",
   });
   res.end();
 });
