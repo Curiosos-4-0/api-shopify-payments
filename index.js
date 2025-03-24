@@ -14,9 +14,12 @@ const { Pool } = require("pg");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Enable CORS
 app.use(cors());
-
+  console.log(
+    "Enable CORS"
+  );
 app.get("/token_payment", function (req, res) {
   GPO_URL = process.env.GPO_URL;
   TOKEN = process.env.TOKEN;
